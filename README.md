@@ -1,30 +1,51 @@
-=== FightTicket PPV Player ===
-Contributors: James Lehart
-Tags: video, ppv, cloudflare, streaming
-Requires at least: 5.0
-Tested up to: 6.4
-Stable tag: 1.0.0
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+# FightTicket Cloudflare Player
 
-A WordPress plugin for managing Cloudflare Stream signed URLs.
+A WordPress plugin for secure video playback using Cloudflare signed URLs with countdown timer functionality.
 
-== Description ==
-FightTicket PPV Player allows you to easily embed and manage Cloudflare Stream videos signed URLs.
+## Description
 
-== Installation ==
-1. Upload the plugin files to `/wp-content/plugins/ft-ppv-player`
-2. Activate the plugin
-3. Configure your Cloudflare credentials
+FightTicket Cloudflare Player is a specialized WordPress plugin that enables secure video streaming through Cloudflare's platform. It features:
 
-== Changelog ==
-= 1.0.0 =
-* Initial release
+- Secure video playback using Cloudflare signed URLs
+- Integrated countdown timer for time-sensitive content
+- Simple shortcode implementation
+- WordPress admin integration
 
-== Frequently Asked Questions ==
-= How do I get my Cloudflare credentials? =
-Visit your Cloudflare dashboard. Go to profile > API Tokens > Create Token. Select Account > Stream > Read, Edit. Copy the token and paste it
-into the plugin settings.
+## Auto Installation
+1. In Wordpress go to -> Plugins -> Add New Plugin
+2. Uplaod the zip file
+3. Activate the plugin
+4. Configure your Cloudflare settings in the plugin admin panel
 
-= How do I get my Cloudflare Stream live input ID? =
-Visit your Cloudflare dashboard. Go to Stream > Live Inputs. Select the input you want to use and copy the ID.
+## Manual Installation
+
+1. Upload the plugin files to the `/wp-content/plugins/fightticket-cloudflare-player` directory
+2. Activate the plugin through the 'Plugins' menu in WordPress
+3. Configure your Cloudflare settings in the plugin admin panel
+
+## Usage
+
+To embed a video player, use the following shortcode: [ft-player id="*"]
+
+## Changelog
+
+### 1.0.2
+- Fixed various error relating to key signing
+- Fixed countdown background not showing
+- Added subdomain replacement in the plugin settings
+
+-- Upcoming changes --
+- Add support for editing existing players
+- Add support for bulk player deletion
+- Add support for add VOD players
+
+### 1.0.1
+- Fixed various error relating to key signing
+- Fixed typos in error messages
+
+-- Upcoming changes --
+- Fix subdomain error
+- Include plugin auto-updater
+
+### 1.0.0 
+- Inital release

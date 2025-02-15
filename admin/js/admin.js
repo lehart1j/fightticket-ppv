@@ -1,23 +1,42 @@
 jQuery(document).ready(function($) {
     // Add Player Form
-    $('#ft-ppv-add-player').on('submit', function(e) {
+    $('#ft-player-add-player').on('submit', function(e) {
         e.preventDefault();
         
+        const formData = {
+            action: 'ft_player_add_player',
+            nonce: ftPlayer.nonce,
+            name: $('#name').val(),
+            live_input_id: $('#live_input_id').val(),
+            event_date: $('#event_date').val(),
+            background_image: $('#background_image').val()
+        };
+
+        // Debug logging
+        console.log('Form values:', {
+            name: $('#name').val(),
+            live_input_id: $('#live_input_id').val(),
+            event_date: $('#event_date').val(),
+            background_image: $('#background_image').val()
+        });
+        console.log('Submitting form data:', formData);
+
         $.ajax({
-            url: ftPpv.ajaxUrl,
+            url: ftPlayer.ajaxUrl,
             type: 'POST',
-            data: {
-                action: 'ft_ppv_save_player',
-                nonce: ftPpv.nonce,
-                name: $('#name').val(),
-                live_input_id: $('#live_input_id').val(),
-                event_date: $('#event_date').val()
-            },
+            data: formData,
             success: function(response) {
+                console.log('Server response:', response); // Debug response
                 if (response.success) {
                     showNotice(response.data.message);
                     location.reload();
+                } else {
+                    alert(response.data.message);
                 }
+            },
+            error: function(xhr, status, error) {
+                console.error('Ajax error:', {xhr, status, error}); // Debug errors
+                alert('An error occurred while saving the player.');
             }
         });
     });
@@ -31,11 +50,11 @@ jQuery(document).ready(function($) {
         var playerId = $(this).data('id');
         
         $.ajax({
-            url: ftPpv.ajaxUrl,
+            url: ftPlayer.ajaxUrl,
             type: 'POST',
             data: {
-                action: 'ft_ppv_delete_player',
-                nonce: ftPpv.nonce,
+                action: 'ft_player_delete_player',
+                nonce: ftPlayer.nonce,
                 player_id: playerId
             },
             success: function(response) {
@@ -47,7 +66,7 @@ jQuery(document).ready(function($) {
     });
 
     function showNotice(message) {
-        var $notice = $('#ft-ppv-notice');
+        var $notice = $('#ft-player-notice');
         $notice.html(message).show();
         setTimeout(function() {
             $notice.fadeOut();
@@ -66,8 +85,8 @@ jQuery(document).ready(function($) {
             url: ajaxurl,
             type: 'POST',
             data: {
-                action: 'ft_ppv_test_stream',
-                nonce: ftPpv.nonce
+                action: 'ft_player_test_stream',
+                nonce: ftPlayer.nonce
             },
             success: function(response) {
                 if (response.success) {

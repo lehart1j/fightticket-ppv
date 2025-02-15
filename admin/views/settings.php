@@ -1,8 +1,8 @@
 <div class="wrap">
-    <h1>FT PPV Settings</h1>
+    <h1>FightTicket Player Settings</h1>
     
-    <div class="notice notice-error" style="display:none;" id="ft-ppv-error"></div>
-    <div class="notice notice-success" style="display:none;" id="ft-ppv-notice"></div>
+    <div class="notice notice-error" style="display:none;" id="ft-player-error"></div>
+    <div class="notice notice-success" style="display:none;" id="ft-player-notice"></div>
 
     <?php if ($account_id && $api_token): ?>
     <div class="notice notice-info">
@@ -11,28 +11,57 @@
     <?php endif; ?>
 
     <div class="card">
-        <form id="ft-ppv-settings" method="post">
-            <table class="form-table">
-                <tr>
-                    <th><label for="account_id">Cloudflare Account ID</label></th>
-                    <td>
-                        <input type="text" id="account_id" name="account_id" class="regular-text" 
-                            value="<?php echo esc_attr($account_id ? $this->encryption->decrypt($account_id) : ''); ?>" required>
-                        <p class="description">Your Cloudflare Account ID</p>
-                    </td>
-                </tr>
-                <tr>
-                    <th><label for="api_token">API Token</label></th>
-                    <td>
-                        <input type="password" id="api_token" name="api_token" class="regular-text" 
-                            value="<?php echo esc_attr($api_token ? $this->encryption->decrypt($api_token) : ''); ?>" required>
-                        <p class="description">Your Cloudflare API Token with Stream permissions</p>
-                    </td>
-                </tr>
-            </table>
-            <p class="submit">
-                <button type="submit" class="button button-primary">Save Settings</button>
-            </p>
+        <form method="post" action="options.php">
+            <?php
+            settings_fields('ft_player_settings');
+            do_settings_sections('ft_player_settings');
+            submit_button();
+            ?>
         </form>
     </div>
-</div> 
+
+    <?php if ($this->player->is_cloudflare_configured()): ?>
+    <div class="card">
+        <h2>Signing Key</h2>
+        <p>Generate a signing key for secure stream URLs:</p>
+        <button class="button button-secondary" id="generate-signing-key">Generate Signing Key</button>
+        <div id="signing-key-result" style="margin-top: 10px;"></div>
+    </div>
+    <?php endif; ?>
+</div>
+
+<script>
+jQuery(document).ready(function($) {
+    $('#generate-signing-key').on('click', function(e) {
+        e.preventDefault();
+        const $button = $(this);
+        const $result = $('#signing-key-result');
+        
+        $button.prop('disabled', true);
+        $result.html('Generating signing key...');
+        
+        $.ajax({
+            url: ajaxurl,
+            type: 'POST',
+            data: {
+                action: 'ft_player_generate_signing_key',
+                nonce: '<?php echo wp_create_nonce('ft_player_nonce'); ?>'
+            },
+            success: function(response) {
+                if (response.success) {
+                    $result.html('<div class="notice notice-success"><p>' + response.data.message + '</p></div>');
+                    setTimeout(() => window.location.reload(), 2000);
+                } else {
+                    $result.html('<div class="notice notice-error"><p>' + response.data.message + '</p></div>');
+                }
+            },
+            error: function() {
+                $result.html('<div class="notice notice-error"><p>Failed to generate signing key</p></div>');
+            },
+            complete: function() {
+                $button.prop('disabled', false);
+            }
+        });
+    });
+});
+</script> 

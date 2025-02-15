@@ -24,7 +24,7 @@ console.log = (...args) => !shouldSuppressMessage(args) && originalLog.apply(con
 console.warn = (...args) => !shouldSuppressMessage(args) && originalWarn.apply(console, args);
 
 jQuery(document).ready(function($) {
-    $('.ft-ppv-player').each(function() {
+    $('.ft-player-player').each(function() {
         const $player = $(this);
         const $countdown = $player.find('.countdown');
         const $countdownContainer = $player.find('.countdown-container');
@@ -72,11 +72,11 @@ jQuery(document).ready(function($) {
             }
 
             $.ajax({
-                url: ftPpv.ajaxUrl,
+                url: ftPlayer.ajaxUrl,
                 type: 'POST',
                 data: {
-                    action: 'ft_ppv_check_stream',
-                    nonce: ftPpv.nonce,
+                    action: 'ft_player_check_stream',
+                    nonce: ftPlayer.nonce,
                     player_id: playerId
                 },
                 success: function(response) {
@@ -122,11 +122,11 @@ jQuery(document).ready(function($) {
 
         function getStreamUrl(callback) {
             $.ajax({
-                url: ftPpv.ajaxUrl,
+                url: ftPlayer.ajaxUrl,
                 type: 'POST',
                 data: {
-                    action: 'ft_ppv_get_stream_url',
-                    nonce: ftPpv.nonce,
+                    action: 'ft_player_get_stream_url',
+                    nonce: ftPlayer.nonce,
                     player_id: playerId
                 },
                 success: function(response) {

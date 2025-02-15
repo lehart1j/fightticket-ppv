@@ -1,27 +1,35 @@
-.ft-ppv-player {
+.ft-player-player {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     position: relative;
+    height: auto;
+    overflow: hidden;
 }
 
 .countdown-container {
     min-height: 300px;
+    height: auto;
+    max-height: none;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
     background-color: #000;
     color: #fff;
     text-align: center;
     padding: 2em;
+    position: relative;
+    aspect-ratio: 16/9;
 }
 
 .countdown {
     font-size: 1vw;
-    padding: 1vw;
-    background: rgba(0, 0, 0, 0.7);
+    padding: 1.5vw;
+    background: rgba(128, 128, 128, 0.8);
     border-radius: 10px;
     color: white;
     position: absolute;
@@ -31,11 +39,12 @@
     width: 75%;
     max-width: 600px;
     text-align: center;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 }
 
 .video-container {
     position: relative;
-    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    padding-bottom: 56.25%; 
     height: 0;
     overflow: hidden;
 }
@@ -49,7 +58,7 @@
     border: 0;
 }
 
-.mute-notification {
+.mute-notifcation {
     position: absolute;
     top: 10px;
     left: 50%;
@@ -62,25 +71,25 @@
     display: none;
 }
 
-.stream-status {
+.stream_status {
     position: absolute;
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
     padding: 8px 16px;
     border-radius: 4px;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0,0,0,0.8);
     color: #fff;
     font-size: 14px;
     z-index: 100;
 }
 
 .status-live {
-    background: rgba(0, 255, 0, 0.8);
+    background: rgba(0,255,0,0.8);
 }
 
 .status-waiting {
-    background: rgba(255, 165, 0, 0.8);
+    background: rgba(255,165,0,0.8);
 }
 
 .status-error {
@@ -90,6 +99,7 @@
 @media (max-width: 768px) {
     .countdown {
         font-size: 4vw;
-        padding: 3vw;
+        padding: 4vw;
+        width: 85%;
     }
-} 
+}

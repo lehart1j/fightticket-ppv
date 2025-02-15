@@ -1,11 +1,11 @@
 <div class="wrap">
-    <h1>FT PPV Players</h1>
+    <h1>FightTicket Player Players</h1>
     
-    <div class="notice notice-success is-dismissible" style="display:none;" id="ft-ppv-notice"></div>
+    <div class="notice notice-success is-dismissible" style="display:none;" id="ft-player-notice"></div>
 
     <div class="card">
         <h2>Add New Player</h2>
-        <form id="ft-ppv-add-player">
+        <form id="ft-player-add-player">
             <table class="form-table">
                 <tr>
                     <th><label for="name">Player Name</label></th>
@@ -49,7 +49,7 @@
                 <tr>
                     <td><?php echo esc_html($player->name); ?></td>
                     <td><?php echo esc_html($player->event_date); ?></td>
-                    <td><code>[ft_ppv id="<?php echo esc_attr($player->id); ?>"]</code></td>
+                    <td><code>[ft_player id="<?php echo esc_attr($player->id); ?>"]</code></td>
                     <td>
                         <button class="button button-small delete-player" data-id="<?php echo esc_attr($player->id); ?>">Delete</button>
                     </td>
